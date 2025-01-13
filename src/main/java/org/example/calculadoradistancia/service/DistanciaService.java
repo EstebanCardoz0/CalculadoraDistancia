@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DistanciaService
         implements IDistanciaService {
@@ -23,7 +25,7 @@ public class DistanciaService
 
 
     @Override @Transactional
-    public void crearDistancia(
+    public String crearDistancia(
             Distancia distancia) {
 
         Ciudad A =
@@ -37,22 +39,46 @@ public class DistanciaService
                                         .getCiudadId())
                         .orElse(null);
 
-        if (A != null && B != null) {
-            distanciaRepo.save(distancia);
-            A.getDistancias()
-                    .add(distancia.getCiudad_B());
-            B.getDistancias()
-                    .add(distancia.getCiudad_A());
-            ciudadRepo.save(A);
-            ciudadRepo.save(B);
+        if (A != null && B != null &&
+                distancia.getKilómetros() !=
+                        null) {
+
+            Optional<Distancia> existente =
+                    distanciaRepo.findByCiudades(
+                            A, B);
+
+            if (existente.isEmpty()) {
+                distancia.setCiudad_A(A);
+                distancia.setCiudad_B(B);
+                distanciaRepo.save(distancia);
+            } else {
+                String mensaje =
+                        "\"la distancia entre\"" +
+                                " +\n" +
+                                "              " +
+                                "          \" " +
+                                "las ciudades " +
+                                "ya \" +\n" +
+                                "              " +
+                                "        " +
+                                "  \"existe\"";
+                logger.error(mensaje);
+                return mensaje;
+            }
+
         } else {
-            logger.error(
+            String mensaje =
                     "Una o ambas ciudades no " +
                             "están en la base " +
-                            "de datos");
+                            "de datos, o el " +
+                            "kilómetro es null";
+            logger.error(mensaje);
+            return mensaje;
 
         }
 
-
+        String mensaje = "Distancia creada correctamente.";
+        logger.info(mensaje);
+        return mensaje;
     }
 }

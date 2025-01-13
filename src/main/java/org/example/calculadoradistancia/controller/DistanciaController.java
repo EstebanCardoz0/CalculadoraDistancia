@@ -15,13 +15,13 @@ public class DistanciaController {
             distanciaServ;
 
     @PostMapping("/crear")
-    public String crearDistancia(@RequestBody
-                                 Distancia distancia) {
-        System.out.println(
-                "Datos recibidos: " + distancia);
-        distanciaServ.crearDistancia(distancia);
+    public String crearDistancia(
+            @RequestBody Distancia distancia) {
 
-        return "Distancia creada con éxito";
+        String mensaje = distanciaServ.crearDistancia(
+                        distancia);
+
+        return mensaje;
     }
 
 

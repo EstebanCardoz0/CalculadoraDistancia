@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Data
+
 public class Ciudad {
 
     @Id
@@ -22,35 +22,21 @@ public class Ciudad {
     private String region;
     @JsonProperty("habitantes")
     private long habitantes;
-    @ManyToMany
-    @JoinTable(name = "distancia",
-            joinColumns = @JoinColumn(
-                    name = "ciudad_A"),
-            inverseJoinColumns =
-            @JoinColumn(name = "ciudad_B"))
-    private List<Ciudad> distancias;
+    @OneToMany(mappedBy = "ciudad_A", cascade =
+            CascadeType.ALL)
+    private List<Distancia> distancias;
 
     public Ciudad() {
     }
 
     public Ciudad(Integer ciudadId, String nombre,
                   String region, long habitantes,
-                  List<Ciudad> distancias) {
+                  List<Distancia> distancias) {
         this.ciudadId = ciudadId;
         this.nombre = nombre;
         this.region = region;
         this.habitantes = habitantes;
         this.distancias = distancias;
-    }
-
-    @Override public String toString() {
-        return "Ciudad{" +
-                "ciudadId=" + ciudadId +
-                ", nombre='" + nombre + '\'' +
-                ", region='" + region + '\'' +
-                ", habitantes=" + habitantes +
-                ", distancias=" + distancias +
-                '}';
     }
 
     public Integer getCiudadId() {
@@ -85,12 +71,22 @@ public class Ciudad {
         this.habitantes = habitantes;
     }
 
-    public List<Ciudad> getDistancias() {
+    public List<Distancia> getDistancias() {
         return distancias;
     }
 
     public void setDistancias(
-            List<Ciudad> distancias) {
+            List<Distancia> distancias) {
         this.distancias = distancias;
+    }
+
+    @Override public String toString() {
+        return "Ciudad{" +
+                "ciudadId=" + ciudadId +
+                ", nombre='" + nombre + '\'' +
+                ", region='" + region + '\'' +
+                ", habitantes=" + habitantes +
+                ", distancias=" + distancias +
+                '}';
     }
 }

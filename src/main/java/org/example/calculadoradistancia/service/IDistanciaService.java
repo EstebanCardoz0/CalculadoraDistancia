@@ -4,5 +4,5 @@ import org.example.calculadoradistancia.entity.Distancia;
 
 public interface IDistanciaService {
 
-    void crearDistancia(Distancia distancia);
+    String crearDistancia(Distancia distancia);
 }

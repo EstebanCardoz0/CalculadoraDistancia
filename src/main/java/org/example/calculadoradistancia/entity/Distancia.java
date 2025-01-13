@@ -9,7 +9,7 @@ import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.ValueGenerationType;
 
 @Entity
-@Data
+
 public class Distancia {
 
     @Id
@@ -19,11 +19,11 @@ public class Distancia {
     @JsonProperty("kilómetros")
     private Double kilómetros;
     @ManyToOne
-    @JoinColumn(name = "ciudad_A")
+    @JoinColumn(name = "ciudad_A", nullable = false )
     @JsonProperty("ciudad_A")
     private Ciudad ciudad_A;
     @ManyToOne
-    @JoinColumn(name = "ciudad_B")
+    @JoinColumn(name = "ciudad_B", nullable = false )
     @JsonProperty("ciudad_B")
 
     private Ciudad ciudad_B;
