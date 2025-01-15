@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -77,8 +78,14 @@ public class DistanciaService
 
         }
 
-        String mensaje = "Distancia creada correctamente.";
+        String mensaje =
+                "Distancia creada correctamente.";
         logger.info(mensaje);
         return mensaje;
+    }
+
+    @Override
+    public List<Distancia> getDistancias() {
+        return distanciaRepo.findAll();
     }
 }

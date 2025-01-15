@@ -3,10 +3,9 @@ package org.example.calculadoradistancia.controller;
 import org.example.calculadoradistancia.entity.Distancia;
 import org.example.calculadoradistancia.service.IDistanciaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController @RequestMapping("/distancia")
 public class DistanciaController {
@@ -18,10 +17,16 @@ public class DistanciaController {
     public String crearDistancia(
             @RequestBody Distancia distancia) {
 
-        String mensaje = distanciaServ.crearDistancia(
+        String mensaje =
+                distanciaServ.crearDistancia(
                         distancia);
 
         return mensaje;
+    }
+
+    @GetMapping("/get")
+    public List<Distancia> getDistancias() {
+        return distanciaServ.getDistancias();
     }
 
 

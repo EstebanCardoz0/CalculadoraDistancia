@@ -1,6 +1,9 @@
 package org.example.calculadoradistancia.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +12,10 @@ import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.ValueGenerationType;
 
 @Entity
+@JsonIdentityInfo(
+        generator =
+                ObjectIdGenerators.PropertyGenerator.class,
+        property = "idDistancia")
 
 public class Distancia {
 
@@ -19,13 +26,14 @@ public class Distancia {
     @JsonProperty("kilómetros")
     private Double kilómetros;
     @ManyToOne
-    @JoinColumn(name = "ciudad_A", nullable = false )
+    @JoinColumn(name = "ciudad_A",
+            nullable = false)
     @JsonProperty("ciudad_A")
     private Ciudad ciudad_A;
     @ManyToOne
-    @JoinColumn(name = "ciudad_B", nullable = false )
+    @JoinColumn(name = "ciudad_B",
+            nullable = false)
     @JsonProperty("ciudad_B")
-
     private Ciudad ciudad_B;
 
     public Distancia(Integer idDistancia,
