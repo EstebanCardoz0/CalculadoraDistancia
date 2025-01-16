@@ -1,15 +1,9 @@
 package org.example.calculadoradistancia.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GeneratorType;
-import org.hibernate.annotations.ValueGenerationType;
 
 @Entity
 @JsonIdentityInfo(
@@ -85,7 +79,7 @@ public class Distancia {
     }
 
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         return "Distancia{" +
                 "idDistancia=" + idDistancia +
                 ", kilómetros=" + kilómetros +

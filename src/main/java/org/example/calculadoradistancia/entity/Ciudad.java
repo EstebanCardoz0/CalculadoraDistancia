@@ -1,13 +1,9 @@
 package org.example.calculadoradistancia.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +18,9 @@ public class Ciudad {
             strategy = GenerationType.IDENTITY)
     private Integer ciudadId;
     @JsonProperty("nombre")
-    private String nombre;
+    private java.lang.String nombre;
     @JsonProperty("region")
-    private String region;
+    private java.lang.String region;
     @JsonProperty("habitantes")
     private long habitantes;
     @OneToMany(mappedBy = "ciudad_A", cascade =
@@ -44,7 +40,7 @@ public class Ciudad {
     public Ciudad() {
     }
 
-    public Ciudad(Integer ciudadId, String nombre, String region, long habitantes, List<Distancia> distanciasA, List<Distancia> distanciasB) {
+    public Ciudad(Integer ciudadId, java.lang.String nombre, java.lang.String region, long habitantes, List<Distancia> distanciasA, List<Distancia> distanciasB) {
         this.ciudadId = ciudadId;
         this.nombre = nombre;
         this.region = region;
@@ -61,19 +57,19 @@ public class Ciudad {
         this.ciudadId = ciudadId;
     }
 
-    public String getNombre() {
+    public java.lang.String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(java.lang.String nombre) {
         this.nombre = nombre;
     }
 
-    public String getRegion() {
+    public java.lang.String getRegion() {
         return region;
     }
 
-    public void setRegion(String region) {
+    public void setRegion(java.lang.String region) {
         this.region = region;
     }
 

@@ -26,7 +26,7 @@ public class DistanciaService
 
 
     @Override @Transactional
-    public String crearDistancia(
+    public java.lang.String crearDistancia(
             Distancia distancia) {
 
         Ciudad A =
@@ -53,22 +53,14 @@ public class DistanciaService
                 distancia.setCiudad_B(B);
                 distanciaRepo.save(distancia);
             } else {
-                String mensaje =
-                        "\"la distancia entre\"" +
-                                " +\n" +
-                                "              " +
-                                "          \" " +
-                                "las ciudades " +
-                                "ya \" +\n" +
-                                "              " +
-                                "        " +
-                                "  \"existe\"";
+                java.lang.String mensaje ="La distancia entre ciudades ya existe";
+
                 logger.error(mensaje);
                 return mensaje;
             }
 
         } else {
-            String mensaje =
+            java.lang.String mensaje =
                     "Una o ambas ciudades no " +
                             "están en la base " +
                             "de datos, o el " +
@@ -78,7 +70,7 @@ public class DistanciaService
 
         }
 
-        String mensaje =
+        java.lang.String mensaje =
                 "Distancia creada correctamente.";
         logger.info(mensaje);
         return mensaje;
@@ -86,6 +78,7 @@ public class DistanciaService
 
     @Override
     public List<Distancia> getDistancias() {
+
         return distanciaRepo.findAll();
     }
 }

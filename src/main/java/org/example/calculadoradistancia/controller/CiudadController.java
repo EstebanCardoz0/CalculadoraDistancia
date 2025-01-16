@@ -3,7 +3,6 @@ package org.example.calculadoradistancia.controller;
 import org.example.calculadoradistancia.dto.CiudadDTO;
 import org.example.calculadoradistancia.entity.Ciudad;
 import org.example.calculadoradistancia.entity.Distancia;
-import org.example.calculadoradistancia.service.CiudadService;
 import org.example.calculadoradistancia.service.ICiudadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +17,8 @@ public class CiudadController {
     ICiudadService ciudadServ;
 
     @PostMapping("/crear")
-    public String crearCiudad(@RequestBody
-                              Ciudad ciudad) {
-        System.out.println("datos recibidos: " + ciudad);
+    public java.lang.String crearCiudad(@RequestBody
+                                        Ciudad ciudad) {
         ciudadServ.crearCiudad(ciudad);
         return "Ciudad creada exitosamente";
     }
@@ -34,7 +32,7 @@ public class CiudadController {
         for (Ciudad ciu :
                 ciudadServ.getCiudades()) {
 
-            Set<String> vincu = new HashSet<>();
+            Set<java.lang.String> vincu = new HashSet<>();
 
             for (Distancia lista :
                     ciu.allDistancias()) {
@@ -56,7 +54,7 @@ public class CiudadController {
                     ciu.getNombre(),
                     ciu.getRegion(),
                     ciu.getHabitantes(),
-                    new ArrayList<String>(
+                    new ArrayList<java.lang.String>(
                             vincu)));
         }
         return ciudades;
@@ -65,7 +63,7 @@ public class CiudadController {
     @GetMapping("/get/{id}")
     public CiudadDTO getCiudad(@PathVariable Integer id) {
         Ciudad ciudad = ciudadServ.getCiudad(id);
-        Set<String> vincu = new HashSet<>();
+        Set<java.lang.String> vincu = new HashSet<>();
 
         for (Distancia dis : ciudad.allDistancias()) {
             if (!dis.getCiudad_A().equals(ciudad)) {

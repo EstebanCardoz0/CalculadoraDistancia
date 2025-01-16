@@ -1,6 +1,5 @@
 package org.example.calculadoradistancia.repository;
 
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.example.calculadoradistancia.entity.Ciudad;
 import org.example.calculadoradistancia.entity.Distancia;
 import org.springframework.data.jpa.repository.JpaRepository;
