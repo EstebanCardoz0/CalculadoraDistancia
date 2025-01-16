@@ -84,7 +84,8 @@ public class Distancia {
         this.ciudad_B = ciudad_B;
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "Distancia{" +
                 "idDistancia=" + idDistancia +
                 ", kilómetros=" + kilómetros +

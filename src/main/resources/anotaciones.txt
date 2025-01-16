@@ -1,0 +1,3 @@
+crear de vuelta toda la base de datos
+hacer los cambios en las entidades ciudad y distancia
+cambiar solicitudes postman y probar

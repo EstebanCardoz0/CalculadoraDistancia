@@ -10,7 +10,7 @@ public interface ICiudadService {
 
     List<Ciudad> getCiudades();
 
-    Ciudad getCiudad();
+    Ciudad getCiudad(Integer id);
 
 
 }

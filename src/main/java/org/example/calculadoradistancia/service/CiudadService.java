@@ -13,7 +13,8 @@ import java.util.List;
 public class CiudadService
         implements ICiudadService {
 
-    @Autowired ICiudadRepository ciudadRepo;
+    @Autowired
+    ICiudadRepository ciudadRepo;
 
     @Override
     public void crearCiudad(Ciudad ciudad) {
@@ -25,12 +26,15 @@ public class CiudadService
 
     }
 
-    @Override public List<Ciudad> getCiudades() {
+    @Override
+    public List<Ciudad> getCiudades() {
 
         return ciudadRepo.findAll();
     }
 
-    @Override public Ciudad getCiudad() {
-        return null;
+    @Override
+    public Ciudad getCiudad(Integer id) {
+
+        return ciudadRepo.findById(id).orElse(null);
     }
 }

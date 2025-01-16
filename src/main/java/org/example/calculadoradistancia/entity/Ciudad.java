@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,19 +29,28 @@ public class Ciudad {
     private long habitantes;
     @OneToMany(mappedBy = "ciudad_A", cascade =
             CascadeType.ALL)
-    private List<Distancia> distancias;
+    private List<Distancia> distanciasA;
+    @OneToMany(mappedBy = "ciudad_B", cascade =
+            CascadeType.ALL)
+    private List<Distancia> distanciasB;
+
+    public List<Distancia> allDistancias() {
+        List<Distancia> allDistancias = new ArrayList<>();
+        allDistancias.addAll(distanciasA);
+        allDistancias.addAll(distanciasB);
+        return allDistancias;
+    }
 
     public Ciudad() {
     }
 
-    public Ciudad(Integer ciudadId, String nombre,
-                  String region, long habitantes,
-                  List<Distancia> distancias) {
+    public Ciudad(Integer ciudadId, String nombre, String region, long habitantes, List<Distancia> distanciasA, List<Distancia> distanciasB) {
         this.ciudadId = ciudadId;
         this.nombre = nombre;
         this.region = region;
         this.habitantes = habitantes;
-        this.distancias = distancias;
+        this.distanciasA = distanciasA;
+        this.distanciasB = distanciasB;
     }
 
     public Integer getCiudadId() {
@@ -75,22 +85,19 @@ public class Ciudad {
         this.habitantes = habitantes;
     }
 
-    public List<Distancia> getDistancias() {
-        return distancias;
+    public List<Distancia> getDistanciasA() {
+        return distanciasA;
     }
 
-    public void setDistancias(
-            List<Distancia> distancias) {
-        this.distancias = distancias;
+    public void setDistanciasA(List<Distancia> distanciasA) {
+        this.distanciasA = distanciasA;
     }
 
-    @Override public String toString() {
-        return "Ciudad{" +
-                "ciudadId=" + ciudadId +
-                ", nombre='" + nombre + '\'' +
-                ", region='" + region + '\'' +
-                ", habitantes=" + habitantes +
-                ", distancias=" + distancias +
-                '}';
+    public List<Distancia> getDistanciasB() {
+        return distanciasB;
+    }
+
+    public void setDistanciasB(List<Distancia> distanciasB) {
+        this.distanciasB = distanciasB;
     }
 }

@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController @RequestMapping("/ciudad")
+@RestController
+@RequestMapping("/ciudad")
 public class CiudadController {
 
-    @Autowired ICiudadService ciudadServ;
+    @Autowired
+    ICiudadService ciudadServ;
 
     @PostMapping("/crear")
     public String crearCiudad(@RequestBody
                               Ciudad ciudad) {
-        System.out.println("datos " +
-                "recibidos: " + ciudad);
+        System.out.println("datos recibidos: " + ciudad);
         ciudadServ.crearCiudad(ciudad);
         return "Ciudad creada exitosamente";
     }
@@ -30,15 +31,13 @@ public class CiudadController {
         List<CiudadDTO> ciudades =
                 new ArrayList<>();
 
-
         for (Ciudad ciu :
                 ciudadServ.getCiudades()) {
 
             Set<String> vincu = new HashSet<>();
 
-
             for (Distancia lista :
-                    ciu.getDistancias()) {
+                    ciu.allDistancias()) {
                 if (!lista.getCiudad_A()
                         .equals(ciu)
                 ) {
@@ -52,7 +51,6 @@ public class CiudadController {
                             .getNombre());
                 }
             }
-
             ciudades.add(new CiudadDTO(
                     ciu.getCiudadId(),
                     ciu.getNombre(),
@@ -60,10 +58,28 @@ public class CiudadController {
                     ciu.getHabitantes(),
                     new ArrayList<String>(
                             vincu)));
+        }
+        return ciudades;
+    }
 
+    @GetMapping("/get/{id}")
+    public CiudadDTO getCiudad(@PathVariable Integer id) {
+        Ciudad ciudad = ciudadServ.getCiudad(id);
+        Set<String> vincu = new HashSet<>();
+
+        for (Distancia dis : ciudad.allDistancias()) {
+            if (!dis.getCiudad_A().equals(ciudad)) {
+                vincu.add(dis.getCiudad_A().getNombre());
+            }
+            if (!dis.getCiudad_B().equals(ciudad)) {
+                vincu.add(dis.getCiudad_B().getNombre());
+            }
         }
 
-        return ciudades;
+
+        CiudadDTO ciu = new CiudadDTO(ciudad.getCiudadId(), ciudad.getNombre(), ciudad.getRegion(),
+                ciudad.getHabitantes(), new ArrayList<>(vincu));
+        return ciu;
     }
 
 }
