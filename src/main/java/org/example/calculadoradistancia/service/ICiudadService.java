@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ICiudadService {
 
-    void crearCiudad(Ciudad ciudad);
+    String crearCiudad(Ciudad ciudad);
 
     List<Ciudad> getCiudades();
 

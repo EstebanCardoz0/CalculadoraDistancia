@@ -9,4 +9,5 @@ public interface IDistanciaService {
     String crearDistancia(Distancia distancia);
 
     List<Distancia> getDistancias();
+    Distancia getDistancia(Integer id);
 }

@@ -17,10 +17,9 @@ public class CiudadController {
     ICiudadService ciudadServ;
 
     @PostMapping("/crear")
-    public java.lang.String crearCiudad(@RequestBody
-                                        Ciudad ciudad) {
-        ciudadServ.crearCiudad(ciudad);
-        return "Ciudad creada exitosamente";
+    public String crearCiudad(@RequestBody Ciudad ciudad) {
+
+        return ciudadServ.crearCiudad(ciudad);
     }
 
     @GetMapping("/get")

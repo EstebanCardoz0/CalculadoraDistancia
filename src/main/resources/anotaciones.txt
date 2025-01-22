@@ -3,4 +3,4 @@
 
 agregar manejo de excepciones
 
-continuar con el manejo de excepciones
+continuar con el manejo de excepciones (El de get distancia)

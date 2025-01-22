@@ -3,6 +3,7 @@ package org.example.calculadoradistancia.service;
 import jakarta.transaction.Transactional;
 import org.example.calculadoradistancia.entity.Ciudad;
 import org.example.calculadoradistancia.entity.Distancia;
+import org.example.calculadoradistancia.exception.ResourceNotFoundException;
 import org.example.calculadoradistancia.repository.ICiudadRepository;
 import org.example.calculadoradistancia.repository.IDistanciaRepository;
 import org.slf4j.Logger;
@@ -17,23 +18,24 @@ import java.util.Optional;
 public class DistanciaService
         implements IDistanciaService {
 
-    @Autowired IDistanciaRepository distanciaRepo;
-    @Autowired ICiudadRepository ciudadRepo;
+    @Autowired
+    IDistanciaRepository distanciaRepo;
+    @Autowired
+    ICiudadRepository ciudadRepo;
 
     private static final Logger logger =
             LoggerFactory.getLogger(
                     DistanciaService.class);
 
 
-    @Override @Transactional
+    @Override
+    @Transactional
     public java.lang.String crearDistancia(
             Distancia distancia) {
 
-        Ciudad A =
-                ciudadRepo.findById(
-                                distancia.getCiudad_A()
-                                        .getCiudadId())
-                        .orElse(null);
+        Ciudad A = ciudadRepo.findById(distancia.getCiudad_A()
+                        .getCiudadId())
+                .orElse(null);
         Ciudad B =
                 ciudadRepo.findById(
                                 distancia.getCiudad_B()
@@ -53,7 +55,7 @@ public class DistanciaService
                 distancia.setCiudad_B(B);
                 distanciaRepo.save(distancia);
             } else {
-                java.lang.String mensaje ="La distancia entre ciudades ya existe";
+                java.lang.String mensaje = "La distancia entre ciudades ya existe";
 
                 logger.error(mensaje);
                 return mensaje;
@@ -80,5 +82,11 @@ public class DistanciaService
     public List<Distancia> getDistancias() {
 
         return distanciaRepo.findAll();
+    }
+
+    @Override
+    public Distancia getDistancia(Integer id) {
+        return distanciaRepo.findById(id).orElseThrow(()
+        -> new ResourceNotFoundException("No se encontró distancia con ese ID"));
     }
 }
