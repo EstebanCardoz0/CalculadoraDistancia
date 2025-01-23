@@ -87,6 +87,15 @@ public class DistanciaService
     @Override
     public Distancia getDistancia(Integer id) {
         return distanciaRepo.findById(id).orElseThrow(()
-        -> new ResourceNotFoundException("No se encontró distancia con ese ID"));
+                -> new ResourceNotFoundException("No se encontró distancia con ese ID"));
+    }
+
+    @Override
+    public String deleteDistancia(Integer id) {
+        if (!distanciaRepo.existsById(id)) {
+            throw new ResourceNotFoundException("No se encontró distancia con ese ID");
+        }
+        distanciaRepo.deleteById(id);
+        return "Distancia eliminada con éxito";
     }
 }

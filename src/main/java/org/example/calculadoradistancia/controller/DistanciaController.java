@@ -56,10 +56,10 @@ public class DistanciaController {
 
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    @DeleteMapping("/delete/{id}")
+    public String deleteDistancia(@PathVariable Integer id) {
+
+        return distanciaServ.deleteDistancia(id);
     }
 
 

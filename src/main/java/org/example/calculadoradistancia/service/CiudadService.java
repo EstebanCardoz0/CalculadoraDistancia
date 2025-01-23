@@ -54,4 +54,9 @@ public class CiudadService implements ICiudadService {
 
         return ciudadRepo.findById(id).orElse(null);
     }
+
+    @Override
+    public String deleteCiudad(Integer id) {
+        return "";
+    }
 }

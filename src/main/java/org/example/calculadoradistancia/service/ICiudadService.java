@@ -12,5 +12,7 @@ public interface ICiudadService {
 
     Ciudad getCiudad(Integer id);
 
+    String deleteCiudad(Integer id);
+
 
 }

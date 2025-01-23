@@ -1,6 +1,10 @@
 
 
 
-agregar manejo de excepciones
 
-continuar con el manejo de excepciones (El de get distancia)
+
+continuar con el manejo de excepciones
+
+fijarme como borrar ciudades con distancias relacionadas
+
+terminar crud distancia
