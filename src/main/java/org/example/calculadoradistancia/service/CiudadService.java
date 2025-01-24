@@ -1,6 +1,7 @@
 package org.example.calculadoradistancia.service;
 
 import org.example.calculadoradistancia.entity.Ciudad;
+import org.example.calculadoradistancia.exception.ResourceNotFoundException;
 import org.example.calculadoradistancia.repository.ICiudadRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,14 @@ public class CiudadService implements ICiudadService {
 
     @Override
     public String deleteCiudad(Integer id) {
-        return "";
+
+        for (Ciudad ciu : this.ciudadRepo.findAll()) {
+
+            if (!ciudadRepo.existsById(id)) {
+                throw new ResourceNotFoundException("No se encontró ciudad con ese ID");
+            }
+        }
+        ciudadRepo.deleteById(id);
+        return "Ciudad eliminada con éxito";
     }
 }

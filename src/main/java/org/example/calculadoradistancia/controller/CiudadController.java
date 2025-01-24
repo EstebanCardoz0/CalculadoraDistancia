@@ -79,6 +79,12 @@ public class CiudadController {
         return ciu;
     }
 
+    @DeleteMapping("/delete/{id}")
+    public String deleteCiudad(@PathVariable Integer id) {
+
+        return ciudadServ.deleteCiudad(id);
+
+    }
 
 
 }
