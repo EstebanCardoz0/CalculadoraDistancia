@@ -68,4 +68,14 @@ public class CiudadService implements ICiudadService {
         ciudadRepo.deleteById(id);
         return "Ciudad eliminada con éxito";
     }
+
+    @Override
+    public void editCiudad(Integer id, String Nnombre, String Nregion, long Nhabitantes) {
+        Ciudad ciu = this.getCiudad(id);
+        System.out.println(ciu);
+        ciu.setNombre(Nnombre);
+        ciu.setRegion(Nregion);
+        ciu.setHabitantes(Nhabitantes);
+        this.crearCiudad(ciu);
+    }
 }

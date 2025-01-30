@@ -14,5 +14,7 @@ public interface ICiudadService {
 
     String deleteCiudad(Integer id);
 
+    void editCiudad(Integer id, String Nnombre, String Nregion, long Nhabitantes);
+
 
 }

@@ -86,5 +86,16 @@ public class CiudadController {
 
     }
 
+    @PutMapping("/edit/{id}")
+    public CiudadDTO editCiudad(@PathVariable Integer id, @RequestParam(required = false, name = "nombre") String nNombre,
+                                @RequestParam(required = false, name = "region") String nRegion,
+                                @RequestParam(required = false, name = "habitantes") long nHabitantes) {
+
+        ciudadServ.editCiudad(id, nNombre, nRegion, nHabitantes);
+
+
+        return this.getCiudad(id);
+    }
+
 
 }

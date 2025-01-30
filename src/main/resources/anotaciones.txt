@@ -5,6 +5,7 @@
 
 continuar con el manejo de excepciones
 
-fijarme como borrar ciudades con distancias relacionadas
 
 terminar crud distancia
+
+// edit ciudad devuelve sin vinculos
