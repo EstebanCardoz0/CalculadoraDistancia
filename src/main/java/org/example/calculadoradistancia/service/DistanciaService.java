@@ -23,32 +23,18 @@ public class DistanciaService
     @Autowired
     ICiudadRepository ciudadRepo;
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(
-                    DistanciaService.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(DistanciaService.class);
 
     @Override
     @Transactional
-    public java.lang.String crearDistancia(
-            Distancia distancia) {
+    public java.lang.String crearDistancia(Distancia distancia) {
 
-        Ciudad A = ciudadRepo.findById(distancia.getCiudad_A()
-                        .getCiudadId())
-                .orElse(null);
-        Ciudad B =
-                ciudadRepo.findById(
-                                distancia.getCiudad_B()
-                                        .getCiudadId())
-                        .orElse(null);
+        Ciudad A = ciudadRepo.findById(distancia.getCiudad_A().getCiudadId()).orElse(null);
+        Ciudad B = ciudadRepo.findById(distancia.getCiudad_B().getCiudadId()).orElse(null);
 
-        if (A != null && B != null &&
-                distancia.getKilómetros() !=
-                        null) {
+        if (A != null && B != null && distancia.getKilómetros() != null) {
 
-            Optional<Distancia> existente =
-                    distanciaRepo.findByCiudades(
-                            A, B);
+            Optional<Distancia> existente = distanciaRepo.findByCiudades(A, B);
 
             if (existente.isEmpty()) {
                 distancia.setCiudad_A(A);
@@ -56,25 +42,22 @@ public class DistanciaService
                 distanciaRepo.save(distancia);
             } else {
                 java.lang.String mensaje = "La distancia entre ciudades ya existe";
-
                 logger.error(mensaje);
+
                 return mensaje;
             }
 
         } else {
-            java.lang.String mensaje =
-                    "Una o ambas ciudades no " +
-                            "están en la base " +
-                            "de datos, o el " +
-                            "kilómetro es null";
+            java.lang.String mensaje = "Una o ambas ciudades no están en la base de datos, o el kilómetro es null";
             logger.error(mensaje);
+
             return mensaje;
 
         }
 
-        java.lang.String mensaje =
-                "Distancia creada correctamente.";
+        java.lang.String mensaje = "Distancia creada correctamente.";
         logger.info(mensaje);
+
         return mensaje;
     }
 
@@ -86,6 +69,7 @@ public class DistanciaService
 
     @Override
     public Distancia getDistancia(Integer id) {
+
         return distanciaRepo.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("No se encontró distancia con ese ID"));
     }
@@ -96,6 +80,7 @@ public class DistanciaService
             throw new ResourceNotFoundException("No se encontró distancia con ese ID");
         }
         distanciaRepo.deleteById(id);
+
         return "Distancia eliminada con éxito";
     }
 }

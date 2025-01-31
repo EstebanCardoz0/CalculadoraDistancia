@@ -73,7 +73,6 @@ public class CiudadController {
             }
         }
 
-
         CiudadDTO ciu = new CiudadDTO(ciudad.getCiudadId(), ciudad.getNombre(), ciudad.getRegion(),
                 ciudad.getHabitantes(), new ArrayList<>(vincu));
         return ciu;
@@ -90,9 +89,7 @@ public class CiudadController {
     public CiudadDTO editCiudad(@PathVariable Integer id, @RequestParam(required = false, name = "nombre") String nNombre,
                                 @RequestParam(required = false, name = "region") String nRegion,
                                 @RequestParam(required = false, name = "habitantes") long nHabitantes) {
-
         ciudadServ.editCiudad(id, nNombre, nRegion, nHabitantes);
-
 
         return this.getCiudad(id);
     }

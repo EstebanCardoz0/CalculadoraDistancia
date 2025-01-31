@@ -47,13 +47,21 @@ public class CiudadService implements ICiudadService {
     @Override
     public List<Ciudad> getCiudades() {
 
-        return ciudadRepo.findAll();
+        List<Ciudad> ciudades = ciudadRepo.findAll();
+
+        if (ciudades.isEmpty()) {
+            throw new ResourceNotFoundException("No hay ciudades registradas");
+        }
+
+        return ciudades;
     }
 
     @Override
     public Ciudad getCiudad(Integer id) {
 
-        return ciudadRepo.findById(id).orElse(null);
+        return ciudadRepo.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("No se encontró ciudad con ese ID"));
+
     }
 
     @Override
@@ -72,10 +80,9 @@ public class CiudadService implements ICiudadService {
     @Override
     public void editCiudad(Integer id, String Nnombre, String Nregion, long Nhabitantes) {
         Ciudad ciu = this.getCiudad(id);
-        System.out.println(ciu);
         ciu.setNombre(Nnombre);
         ciu.setRegion(Nregion);
         ciu.setHabitantes(Nhabitantes);
-        this.crearCiudad(ciu);
+        ciudadRepo.save(ciu);
     }
 }

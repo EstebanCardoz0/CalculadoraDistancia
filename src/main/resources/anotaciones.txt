@@ -1,11 +1,12 @@
 
 
 
-
+CRUD CIUDAD LISTO
 
 continuar con el manejo de excepciones
 
 
-terminar crud distancia
+terminar crud distancia (edit)
 
-// edit ciudad devuelve sin vinculos
+añadir querys extra
+

@@ -21,9 +21,7 @@ public class DistanciaController {
     public String crearDistancia(
             @RequestBody Distancia distancia) {
 
-        String mensaje =
-                distanciaServ.crearDistancia(
-                        distancia);
+        String mensaje = distanciaServ.crearDistancia(distancia);
 
         return mensaje;
     }
@@ -40,10 +38,8 @@ public class DistanciaController {
                     d.getCiudad_B().getNombre()));
         }
 
-
         return dis;
     }
-
 
     @GetMapping("/get/{id}")
     public DistanciaDTO getDistancia(@PathVariable Integer id) {
