@@ -1,12 +1,11 @@
 
 
 
-CRUD CIUDAD LISTO
+CRUD CIUDAD Y DISTANCIA LISTO
 
 continuar con el manejo de excepciones
 
 
-terminar crud distancia (edit)
 
 añadir querys extra
 

@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DistanciaService
-        implements IDistanciaService {
+public class DistanciaService implements IDistanciaService {
 
     @Autowired
     IDistanciaRepository distanciaRepo;
@@ -68,6 +67,12 @@ public class DistanciaService
     }
 
     @Override
+    public List<Distancia> getDistanciasPorKM() {
+
+        return distanciaRepo.findByOrderByKilómetrosDesc();
+    }
+
+    @Override
     public Distancia getDistancia(Integer id) {
 
         return distanciaRepo.findById(id).orElseThrow(()
@@ -82,5 +87,16 @@ public class DistanciaService
         distanciaRepo.deleteById(id);
 
         return "Distancia eliminada con éxito";
+    }
+
+    @Override
+    public void editDistancia(Integer id, Double nKilómetros, String nCiudad_A, String nCiudad_B) {
+
+        Distancia dis = this.getDistancia(id);
+        dis.setKilómetros(nKilómetros);
+        dis.setCiudad_A(ciudadRepo.findByNombre(nCiudad_A));
+        dis.setCiudad_B(ciudadRepo.findByNombre(nCiudad_B));
+        distanciaRepo.save(dis);
+
     }
 }

@@ -29,16 +29,25 @@ public class DistanciaController {
     @GetMapping("/get")
     public List<DistanciaDTO> getDistancias() {
 
-        List<Distancia> disti = distanciaServ.getDistancias();
+        return this.convertirADTO(distanciaServ.getDistanciasPorKM());
+    }
+
+    @GetMapping("/getKM")
+    public List<DistanciaDTO> getDistanciasPorKM() {
+
+        return this.convertirADTO(distanciaServ.getDistanciasPorKM());
+    }
+
+    private List<DistanciaDTO> convertirADTO(List<Distancia> disti) {
+
         List<DistanciaDTO> dis = new ArrayList<>();
-
-        for (Distancia d : disti) {
-
-            dis.add(new DistanciaDTO(d.getIdDistancia(), d.getKilómetros(), d.getCiudad_A().getNombre(),
-                    d.getCiudad_B().getNombre()));
+        for (Distancia dist : disti) {
+            dis.add(new DistanciaDTO(dist.getIdDistancia(), dist.getKilómetros(), dist.getCiudad_A().getNombre(),
+                    dist.getCiudad_B().getNombre()));
         }
 
         return dis;
+
     }
 
     @GetMapping("/get/{id}")
@@ -53,6 +62,16 @@ public class DistanciaController {
     public String deleteDistancia(@PathVariable Integer id) {
 
         return distanciaServ.deleteDistancia(id);
+    }
+
+    @PutMapping("/edit/{id}")
+    public DistanciaDTO editDistancia(@PathVariable Integer id, @RequestParam(required = false, name =
+            "kilómetros") Double nKilometros, @RequestParam(required = false, name = "ciudad_A") String nCiudad_A,
+                                      @RequestParam(required = false, name = "ciudad_B") String nCiudad_B) {
+
+        distanciaServ.editDistancia(id, nKilometros, nCiudad_A, nCiudad_B);
+        return this.getDistancia(id);
+
     }
 
 
