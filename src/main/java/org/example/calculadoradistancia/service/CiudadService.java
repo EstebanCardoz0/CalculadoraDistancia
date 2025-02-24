@@ -10,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -84,5 +86,40 @@ public class CiudadService implements ICiudadService {
         ciu.setRegion(Nregion);
         ciu.setHabitantes(Nhabitantes);
         ciudadRepo.save(ciu);
+    }
+
+    @Override
+    public Map<String, Ciudad> findCercanaAlejada(Integer ciudadId) {
+
+        List<Object[]> distanciasRelacionadas = ciudadRepo.findDistanciasRelacionadas(ciudadId);
+
+        Ciudad masCercana = null;
+        Ciudad masLejana = null;
+        double distanciaMin = Double.MIN_VALUE;
+        double distanciaMax = Double.MAX_VALUE;
+
+        for (Object[] resultado : distanciasRelacionadas) {
+            Ciudad otraCiudad = (Ciudad) resultado[0];
+            double kilometros = (Double) resultado[1];
+
+            if (kilometros < distanciaMin) {
+                distanciaMin = kilometros;
+                masCercana = otraCiudad;
+            }
+            if (kilometros > distanciaMax) {
+                distanciaMax = kilometros;
+                masLejana = otraCiudad;
+            }
+        }
+
+        if (masCercana == null || masLejana == null) {
+            throw new ResourceNotFoundException("No se encontraron ciudades relacionadas");
+        }
+
+        Map<String, Ciudad> resultado = new HashMap<>();
+        resultado.put("masCercana", masCercana);
+        resultado.put("masLejana", masLejana);
+
+        return resultado;
     }
 }

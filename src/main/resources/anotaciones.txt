@@ -1,7 +1,7 @@
 
 
 
-CRUD CIUDAD Y DISTANCIA LISTO
+TERMINAR QUERY DISTANCIAS MIN Y MAX
 
 continuar con el manejo de excepciones
 

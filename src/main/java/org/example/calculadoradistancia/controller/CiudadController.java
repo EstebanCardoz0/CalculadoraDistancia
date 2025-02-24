@@ -5,6 +5,7 @@ import org.example.calculadoradistancia.entity.Ciudad;
 import org.example.calculadoradistancia.entity.Distancia;
 import org.example.calculadoradistancia.service.ICiudadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -94,5 +95,26 @@ public class CiudadController {
         return this.getCiudad(id);
     }
 
+    @GetMapping("/distancias/{id}")
+    public ResponseEntity<Map<String, CiudadDTO>> findCercanaAlejada(@PathVariable Integer id) {
 
+        Map<String, Ciudad> distancias = ciudadServ.findCercanaAlejada(id);
+        Map<String, CiudadDTO> resultado = new HashMap<>();
+        resultado.put("masCercana", convertirADTO(distancias.get("masCercana")));
+        resultado.put("masLejana", convertirADTO(distancias.get("masLejana")));
+
+        return ResponseEntity.ok(resultado);
+    }
+
+    private CiudadDTO convertirADTO(Ciudad ciudad) {
+        return new CiudadDTO(
+                ciudad.getCiudadId(),
+                ciudad.getNombre(),
+                ciudad.getRegion(),
+                ciudad.getHabitantes(), new ArrayList<>());
+
+    }
 }
+
+
+
